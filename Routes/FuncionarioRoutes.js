@@ -1,7 +1,42 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Funcionários
+ *   description: API para operações relacionadas a funcionários.
+ */
 const router = require('express').Router();
 const Funcionario = require('../models/Funcionario');
 
 
+/**
+ * @swagger
+ * /funcionarios:
+ *   post:
+ *     summary: Cria um novo funcionário
+ *     tags: [Funcionários]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               cargo:
+ *                 type: string
+ *               salario:
+ *                 type: number
+ *               desligado:
+ *                 type: boolean
+ *     responses:
+ *       201:
+ *         description: Funcionário criado com sucesso
+ *       422:
+ *         description: Campos obrigatórios não foram informados
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.post('/', async (req, res) => {
     const { nome, cargo, salario, desligado } = req.body;
     if (!nome || !cargo || !salario || desligado === undefined) {
@@ -23,7 +58,27 @@ router.post('/', async (req, res) => {
     }
 });
 
-//GET
+/**
+ * @swagger
+ * /funcionarios/{id}:
+ *   get:
+ *     summary: Obtém informações de um funcionário pelo ID
+ *     tags: [Funcionários]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID do funcionário
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Funcionário encontrado
+ *       404:
+ *         description: Funcionário não encontrado
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.get('/:id?', async (req, res) => {
     const { id } = req.params;
     
@@ -44,7 +99,44 @@ router.get('/:id?', async (req, res) => {
 });
 
 
-// UPDATE
+/**
+ * @swagger
+ * /funcionarios/{id}:
+ *   put:
+ *     summary: Atualiza informações de um funcionário pelo ID
+ *     tags: [Funcionários]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID do funcionário
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               cargo:
+ *                 type: string
+ *               salario:
+ *                 type: number
+ *               desligado:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Funcionário atualizado com sucesso
+ *       404:
+ *         description: Funcionário não encontrado
+ *       422:
+ *         description: Informar ao menos um campo para atualização
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { nome, cargo, salario, desligado } = req.body;
@@ -65,7 +157,27 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE 
+/**
+ * @swagger
+ * /funcionarios/{id}:
+ *   delete:
+ *     summary: Deleta um funcionário pelo ID
+ *     tags: [Funcionários]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID do funcionário
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Funcionário deletado com sucesso
+ *       404:
+ *         description: Funcionário não encontrado
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 

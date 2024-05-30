@@ -1,7 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 const server = express();
 
+const options = {
+    definition: {
+      openapi: '3.0.0',
+      info: {
+        title: 'Documentação da API',
+        version: '2.0.0',
+        description: 'Documentação da API para operações relacionadas a funcionários.',
+      },
+      servers: [
+        {
+          url: 'https://trabalhomarcio5.onrender.com', 
+        },
+      ],
+    },
+    apis: ['./Routes/FuncionariosRoutes.js'], 
+};
+  
+const specs = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 const funcionarioRoutes = require('./Routes/FuncionarioRoutes')
 
