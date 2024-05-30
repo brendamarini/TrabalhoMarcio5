@@ -1,0 +1,9 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+    "title": "Products",
+    "description": "Documentation from products api",
+    "version": "2.0.0"
+    },
+    "basePath": "/"
+}
