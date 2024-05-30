@@ -22,7 +22,7 @@ const options = {
 };
   
 const specs = swaggerJsdoc(options);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 const funcionarioRoutes = require('./Routes/FuncionarioRoutes')
 
