@@ -5,5 +5,154 @@
     "description": "Documentation from products api",
     "version": "2.0.0"
     },
-    "basePath": "/"
-}
+    "basePath": "/",
+    "paths": {
+        "/Funcionario/": {
+          "post": {
+            "summary": "Create a new Funcionario",
+            "description": "Creates a new funcionario with the provided details",
+            "requestBody": {
+                "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/definitions/Funcionario"
+                          }
+                    }
+                }
+            },
+            "responses": {
+              "201": {
+                "description": "Funcionario created successfully"
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+          },
+          "get": {
+            "summary": "Get all Funcionarios",
+            "description": "Returns a list of all funcionarios",
+            "responses": {
+              "200": {
+                "description": "List of funcionarios",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Funcionario"
+                  }
+                }
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+          }
+        },
+        "/Funcionario/{id}": {
+          "get": {
+            "summary": "Get a Funcionario by ID",
+            "description": "Returns a single funcionario by ID",
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+                }
+            ],
+            "responses": {
+              "200": {
+                "description": "Funcionario data",
+                "schema": {
+                  "$ref": "#/definitions/Funcionario"
+                }
+              },
+              "404": {
+                "description": "Funcionario not found"
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+          },
+          "put": {
+            "summary": "Update a Funcionario by ID",
+            "description": "Updates the details of an existing funcionario",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/definitions/Funcionario"
+                            }
+                    }
+                }
+            },
+            "responses": {
+              "200": {
+                "description": "Funcionario updated successfully",
+                "schema": {
+                  "$ref": "#/definitions/Funcionario"
+                }
+              },
+              "404": {
+                "description": "Funcionario not found"
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+          },
+          "delete": {
+            "summary": "Delete a Funcionario by ID",
+            "description": "Deletes a funcionario by ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Funcionario deleted successfully"
+              },
+              "404": {
+                "description": "Funcionario not found"
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+          }
+        }
+      },
+      "definitions": {
+        "Funcionario": {
+          "type": "object",
+          "required": ["nome", "cargo", "salario", "desligado"],
+          "properties": {
+            "nome": {
+              "type": "string"
+            },
+            "cargo": {
+              "type": "string"
+            },
+            "salario": {
+              "type": "number"
+            },
+            "desligado": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
